@@ -1,7 +1,6 @@
 <template>
   <div>
-    我是 Labels
-    <Nav/>
+    <Layout>我是 Labels</Layout>
   </div>
 </template>
 
