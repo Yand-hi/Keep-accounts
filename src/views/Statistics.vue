@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <Layout>我是 Statistics</Layout>
-  </div>
+  <Layout>
+    <p>我是 Statistics</p>
+  </Layout>
 </template>
 
 <script lang="ts">

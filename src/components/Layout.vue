@@ -17,13 +17,11 @@ export default {
 .nav-wrapper {
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   height: 100vh;
 }
 
 .content {
   flex-grow: 1;
-  border: 1px solid blue;
   overflow: auto;
 }
 </style>
