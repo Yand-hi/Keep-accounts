@@ -1,6 +1,11 @@
 const path = require('path')
 
 module.exports = {
+  devServer: {
+    proxy: 'http://localhost:8080',
+    public: '192.168.43.57:8080'  // 本地ip
+  },
+
   lintOnSave: false,
   chainWebpack: config => {
     const dir = path.resolve(__dirname, 'src/assets/icons')
