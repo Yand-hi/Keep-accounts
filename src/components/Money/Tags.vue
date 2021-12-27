@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>新增标签</button>
+      <button @click="creat">新增标签</button>
     </div>
     <ul class="current">
       <li v-for="item in dataSource" :key="item"
@@ -20,7 +20,7 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  @Prop() dataSource: string[] | undefined;
+  @Prop(Array) readonly dataSource: string[] | undefined;
   selectedTags: string[] = [];
 
   select(item: string) {
@@ -29,6 +29,18 @@ export default class Tags extends Vue {
       this.selectedTags.length = 0;
     } else {
       this.selectedTags.push(item);
+    }
+  }
+
+  creat() {
+    const newTag = window.prompt('请输入标签名：')!;
+    const index = this.dataSource?.indexOf(newTag)!;
+    if (['', null].indexOf(newTag) < 0) {
+      if (index >= 0) {
+        alert('该标签已存在');
+      } else if (this.dataSource) {
+        this.$emit('update:dataSource', [...this.dataSource, newTag]);
+      }
     }
   }
 };
@@ -46,6 +58,7 @@ export default class Tags extends Vue {
 
   > .current {
     display: flex;
+    flex-wrap: wrap;
 
     > li {
       $h: 24px;
@@ -56,6 +69,7 @@ export default class Tags extends Vue {
       border-radius: $h/2;
       padding: 0 16px;
       margin-right: 12px;
+      margin-top: 6px;
 
       &.selected {
         background: darken($bg, 50%);
