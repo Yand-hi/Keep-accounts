@@ -4,17 +4,33 @@
       <button>新增标签</button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li v-for="item in dataSource" :key="item"
+          @click="select(item)"
+          :class=" {selected : selectedTags.indexOf(item) >= 0} "
+      >
+        {{ item }}
+      </li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Tags.vue'
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop() dataSource: string[] | undefined;
+  selectedTags: string[] = [];
+
+  select(item: string) {
+    this.selectedTags.length = 0;
+    if (this.selectedTags.indexOf(item) >= 0) {
+      this.selectedTags.length = 0;
+    } else {
+      this.selectedTags.push(item);
+    }
+  }
 };
 </script>
 
@@ -33,12 +49,18 @@ export default {
 
     > li {
       $h: 24px;
-      background: #d9d9d9;
+      $bg: #d9d9d9;
+      background: $bg;
       height: $h;
       line-height: $h;
       border-radius: $h/2;
       padding: 0 16px;
       margin-right: 12px;
+
+      &.selected {
+        background: darken($bg, 50%);
+        color: #fff;
+      }
     }
   }
 
