@@ -22,12 +22,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class NumberPad extends Vue {
-  output: string = '0';
-  x: string = '';
+  @Prop() readonly value!: number;
+  output = this.value.toString();
 
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
@@ -62,9 +62,11 @@ export default class NumberPad extends Vue {
   };
 
   ok() {
-    // 记录下当前 output
-    this.$emit('update:value', this.output);
-    this.output = '0';
+    //  output为0则不触发更新value
+    if (this.output !== '0') {
+      this.$emit('update:value', this.output);
+      this.output = '0';
+    }
   };
 };
 </script>
