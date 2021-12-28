@@ -3,19 +3,19 @@
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
-    {{ recordList }}
     <Tags :data-source.sync="tags" @update:value="onUpdateTag"/>
   </Layout>
 </template>
 
 <script lang="ts">
-
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 
 import {Component, Vue, Watch} from 'vue-property-decorator';
+
+const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
 //  复杂类型声明
 type Record = {
@@ -32,7 +32,7 @@ type Record = {
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行', '其它'];
   record: Record = {tag: ['其它'], notes: '', type: '-', amount: 0};
-  recordList: Record[] = JSON.parse(localStorage.getItem('recordList') || '');
+  recordList: Record[] = recordList;
 
   onUpdateTag(value: string[]) {
     this.record.tag = value;
@@ -53,7 +53,7 @@ export default class Money extends Vue {
 
   @Watch('recordList')
   onRecordListChange() {
-    localStorage.setItem('recordList', JSON.stringify(this.recordList));
+    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 };
 </script>
