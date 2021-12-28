@@ -28,8 +28,8 @@ type Record = {
   components: {NumberPad, Types, Notes, Tags},
 })
 export default class Money extends Vue {
-  tags = ['衣', '食', '住', '行', '其他'];
-  record: Record = {tag: ['其他'], notes: '', type: '-', amount: 0};
+  tags = ['衣', '食', '住', '行', '其它'];
+  record: Record = {tag: ['其它'], notes: '', type: '-', amount: 0};
   recordList: Record[] = [];
 
   onUpdateTag(value: string[]) {

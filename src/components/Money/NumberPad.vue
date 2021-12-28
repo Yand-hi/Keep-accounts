@@ -62,7 +62,7 @@ export default class NumberPad extends Vue {
   };
 
   ok() {
-    //  output为0则不触发更新value
+    //  output为 0 则不触发更新value
     if (this.output !== '0') {
       this.$emit('update:value', this.output);
       this.$emit('submit', this.output);

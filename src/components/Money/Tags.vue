@@ -40,7 +40,9 @@ export default class Tags extends Vue {
       if (index >= 0) {
         alert('该标签已存在');
       } else if (this.dataSource) {
-        this.$emit('update:dataSource', [...this.dataSource, newTag]);
+        //  使新建的tag总是在‘其他’前面
+        const lastValue = this.dataSource.pop();
+        this.$emit('update:dataSource', [...this.dataSource, newTag, lastValue]);
       }
     }
   }
