@@ -30,6 +30,7 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(item);
     }
+    this.$emit('update:value', this.selectedTags);
   }
 
   creat() {

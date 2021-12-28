@@ -2,18 +2,25 @@
   <div>
     <label class="notes">
       <span class="name">备注</span>
-      <input v-model="value" type="text" placeholder="请在这里输入备注">
+      <input v-model.lazy="value"
+             type="text"
+             placeholder="请在这里输入备注">
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Notes extends Vue {
   value: string = '';
+
+  @Watch('value')
+  onValueChanged(value: string) {
+    this.$emit('update:value', value);
+  }
 }
 </script>
 
