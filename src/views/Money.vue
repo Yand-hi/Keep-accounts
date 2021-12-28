@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad :value="record.amount" @update:value="onUpdateAmount"/>
+    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
     {{ record }}
@@ -15,7 +15,7 @@ import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Vue, Watch} from 'vue-property-decorator';
 
 type Record = {
   tag: string[]
@@ -28,8 +28,9 @@ type Record = {
   components: {NumberPad, Types, Notes, Tags},
 })
 export default class Money extends Vue {
-  tags = ['衣', '食', '住', '行'];
-  record: Record = {tag: [], notes: '', type: '-', amount: 0};
+  tags = ['衣', '食', '住', '行', '其他'];
+  record: Record = {tag: ['其他'], notes: '', type: '-', amount: 0};
+  recordList: Record[] = [];
 
   onUpdateTag(value: string[]) {
     this.record.tag = value;
@@ -39,8 +40,18 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
 
-  onUpdateAmount(value: string) {
-    this.record.amount = parseFloat(value);
+  saveRecord() {
+    // 这样只是push了record的引用；
+    // record的value变化，之前push进去的也会被改变；
+    // push之前对record进行深拷贝；
+    const newRecord = JSON.parse(JSON.stringify(this.record));
+    this.recordList.push(newRecord);
+    console.log(this.recordList);
+  }
+
+  @Watch('recordList')
+  onRecordListChange() {
+    localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 };
 </script>
