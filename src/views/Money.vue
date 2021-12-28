@@ -3,7 +3,7 @@
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
-    {{ record }}
+    {{ recordList }}
     <Tags :data-source.sync="tags" @update:value="onUpdateTag"/>
   </Layout>
 </template>
@@ -30,7 +30,7 @@ type Record = {
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行', '其它'];
   record: Record = {tag: ['其它'], notes: '', type: '-', amount: 0};
-  recordList: Record[] = [];
+  recordList: Record[] = JSON.parse(localStorage.getItem('recordList') || '');
 
   onUpdateTag(value: string[]) {
     this.record.tag = value;
