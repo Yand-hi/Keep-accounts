@@ -13,15 +13,17 @@ import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Vue, Watch} from 'vue-property-decorator';
-import model from '@/model';
+import recordListModel from '@/models/recordListModel';
+import tagListModel from '@/models/tagListModel';
 
-const recordList = model.fetch();
+const recordList = recordListModel.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
   components: {NumberPad, Types, Notes, Tags},
 })
 export default class Money extends Vue {
-  tags = ['衣', '食', '住', '行', '其它'];
+  tags = tagList;
   record: RecordItem = {tag: ['其它'], notes: '', type: '-', amount: 0};
   recordList: RecordItem[] = recordList;
 
@@ -38,14 +40,14 @@ export default class Money extends Vue {
     // 这样只是push了record的引用；
     // record的value变化，之前push进去的也会被改变；
     // push之前对record进行深拷贝；
-    const newRecord: RecordItem = model.clone(this.record);
+    const newRecord: RecordItem = recordListModel.clone(this.record);
     newRecord.time = new Date();
     this.recordList.push(newRecord);
   }
 
   @Watch('recordList')
   onRecordListChange() {
-    model.save(this.recordList);
+    recordListModel.save(this.recordList);
   }
 };
 </script>
