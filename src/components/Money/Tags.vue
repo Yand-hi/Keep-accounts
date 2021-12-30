@@ -4,11 +4,11 @@
       <button @click="creat">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="item in dataSource" :key="item"
-          @click="select(item)"
-          :class=" {selected : selectedTags.indexOf(item) >= 0} "
+      <li v-for="tag in dataSource" :key="tag.id"
+          :class=" {selected : selectedTags.indexOf(tag) >= 0} "
+          @click="select(tag)"
       >
-        {{ item }}
+        {{ tag.name }}
       </li>
     </ul>
   </div>
@@ -23,26 +23,24 @@ export default class Tags extends Vue {
   @Prop(Array) readonly dataSource: string[] | undefined;
   selectedTags: string[] = [];
 
-  select(item: string) {
+  select(tag: string) {
     this.selectedTags.length = 0;
-    if (this.selectedTags.indexOf(item) >= 0) {
+    if (this.selectedTags.indexOf(tag) >= 0) {
       this.selectedTags.length = 0;
     } else {
-      this.selectedTags.push(item);
+      this.selectedTags.push(tag);
     }
     this.$emit('update:value', this.selectedTags);
   }
 
   creat() {
-    const newTag = window.prompt('请输入标签名：')!;
+    const newTag = window.prompt('请输入标签名:')!;
     const index = this.dataSource?.indexOf(newTag)!;
     if (['', null].indexOf(newTag) < 0) {
       if (index >= 0) {
-        alert('该标签已存在');
+        window.alert('该标签已存在');
       } else if (this.dataSource) {
-        //  使新建的tag总是在‘其他’前面
-        const lastValue = this.dataSource.pop();
-        this.$emit('update:dataSource', [...this.dataSource, newTag, lastValue]);
+        this.$emit('update:dataSource', [...this.dataSource, newTag]);
       }
     }
   }
