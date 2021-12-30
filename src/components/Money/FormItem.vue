@@ -2,8 +2,9 @@
   <div>
     <label class="formItem">
       <span class="name">{{ this.fileName }}</span>
-      <input v-model.lazy="value"
-             type="text"
+      <input type="text"
+             :value="value"
+             @input="onValueChanged($event.target.value)"
              :placeholder="this.placeholder">
     </label>
   </div>
@@ -15,7 +16,7 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
-  @Prop({default: ''}) value: string;
+  @Prop({default: ''}) readonly value!: string;
 
   @Prop({required: true}) fileName!: string;
   @Prop() placeholder?: string;
