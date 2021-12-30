@@ -1,21 +1,24 @@
 <template>
   <div>
     <label class="notes">
-      <span class="name">备注</span>
+      <span class="name">{{ this.fileName }}</span>
       <input v-model.lazy="value"
              type="text"
-             placeholder="请在这里输入备注">
+             :placeholder="this.placeholder">
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Notes extends Vue {
   value: string = '';
+
+  @Prop({required: true}) fileName!: string;
+  @Prop() placeholder?: string;
 
   @Watch('value')
   onValueChanged(value: string) {
