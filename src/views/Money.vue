@@ -29,7 +29,7 @@ const tagList = tagListModel.fetch();
 })
 export default class Money extends Vue {
   tags = tagList;
-  record: RecordItem = {tag: ['其它'], notes: '', type: '-', amount: 0};
+  record: RecordItem = {tag: [], notes: '', type: '-', amount: 0};
   recordList: RecordItem[] = recordList;
 
   onUpdateTag(value: string[]) {
