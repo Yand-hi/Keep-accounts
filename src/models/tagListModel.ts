@@ -60,8 +60,6 @@ const tagListModel: TagListModel = {
       if (this.data[i].id === id) {
         index = i;
         break;
-      } else {
-        window.alert('删除失败');
       }
     }
     this.data.splice(index, 1);
