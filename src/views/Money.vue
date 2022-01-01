@@ -2,7 +2,6 @@
   <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
-    {{ recordList }}
     <div class="notes">
       <FormItem file-name="备注:"
                 placeholder="请输入备注"
