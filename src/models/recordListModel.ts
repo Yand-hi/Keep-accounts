@@ -8,6 +8,7 @@ const recordListModel = {
     const newRecord: RecordItem = clone(record);
     newRecord.time = new Date();
     this.data.push(newRecord);
+    this.save();
   },
 
   //  获取数据

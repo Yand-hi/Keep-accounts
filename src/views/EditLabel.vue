@@ -71,6 +71,7 @@ export default class EditLabel extends Vue {
   .rightIcon {
     width: 1em;
     height: 1em;
+    color: #2f77f1;
   }
 }
 

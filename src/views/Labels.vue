@@ -55,14 +55,14 @@ export default class Labels extends Vue {
     svg {
       width: 18px;
       height: 18px;
-      color: #666;
+      color: #2f77f1;
       margin-right: 16px;
     }
   }
 }
 
 .createTag {
-  background: #767676;
+  background: #2f77f1;
   color: white;
   border-radius: 4px;
   border: none;
