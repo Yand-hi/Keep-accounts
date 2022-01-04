@@ -10,7 +10,7 @@
     </div>
     <div class="createTag-wrapper">
       <Button class="createTag"
-              @click.native="creatTag">新建标签
+              @click.native="createTag">新建标签
       </Button>
     </div>
   </Layout>
@@ -30,7 +30,7 @@ export default class Labels extends mixins(TagHelper) {
     return this.$store.state.tagList;
   }
 
-  beforeCreate() {
+  beforeCreat() {
     this.$store.commit('fetchTags');
   }
 }
