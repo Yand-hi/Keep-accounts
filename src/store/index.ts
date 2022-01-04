@@ -1,17 +1,29 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import clone from '@/lib/clone';
 
-Vue.use(Vuex); // 把 store 绑到 Vue.prototype.$store = store
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    recordList: [] as RecordItem[]
   },
   mutations: {
-    increment(state, n: number) {
-      state.count += n;
-    }
-  },
+    fetchRecords(state) {
+      state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
+    },
+    createRecord(state, record) {
+      const newRecord: RecordItem = clone(record);
+      newRecord.time = new Date();
+      state.recordList.push(newRecord);
+      store.commit('saveRecords');
+    },
+    saveRecords(state) {
+      window.localStorage.setItem('recordList',
+        JSON.stringify(state.recordList));
+    },
+  }
 });
 
 export default store;
+
