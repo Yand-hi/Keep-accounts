@@ -1,10 +1,15 @@
 //  复杂类型声明
+type RootState = {
+  recordList: RecordItem[],
+  tagList: Tag[],
+  currentTag?: Tag
+}
 type RecordItem = {
   tag: string[];
   notes: string;
   type: string;
   amount: number;
-  time?: Date;
+  time?: string;
 }
 type Tag = {
   id: string;

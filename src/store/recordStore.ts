@@ -13,7 +13,7 @@ const recordStore = {
   },
   createRecord(record: RecordItem) {
     const newRecord: RecordItem = clone(record);
-    newRecord.time = new Date();
+    newRecord.time = new Date().toISOString();
     this.recordList && this.recordList.push(newRecord);
     recordStore.saveRecords();
   },
