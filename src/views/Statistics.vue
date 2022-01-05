@@ -6,20 +6,59 @@
     <Tabs :data-source="intervalList"
           :value.sync="interval"
           class-prefix="interval"/>
-    <div>
-      <ol>
-        <li v-for="(group,index) in result" :key="index">
-          <h3>{{ group.title }}</h3>
-          <ol>
-            <li v-for="item in group.items" :key="item.id">
-              {{ item.amount }} {{ item.time }}
-            </li>
-          </ol>
-        </li>
-      </ol>
-    </div>
+    <ol>
+      <li v-for="(group,index) in result" :key="index">
+        <h3 class="title">{{ group.title }}</h3>
+        <ol>
+          <li v-for="item in group.items" :key="item.id"
+              class="record"
+          >
+            <span>{{ tagString(item.tag) }}</span>
+            <span class="notes">{{ item.notes }}</span>
+            <span>￥{{ item.amount }} </span>
+          </li>
+        </ol>
+      </li>
+      <li v-for="(group,index) in result" :key="index">
+        <h3 class="title">{{ group.title }}</h3>
+        <ol>
+          <li v-for="item in group.items" :key="item.id"
+              class="record"
+          >
+            <span>{{ tagString(item.tag) }}</span>
+            <span class="notes">{{ item.notes }}</span>
+            <span>￥{{ item.amount }} </span>
+          </li>
+        </ol>
+      </li>
+    </ol>
   </Layout>
 </template>
+
+<style scoped lang="scss">
+%item {
+  padding: 8px 16px;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.title {
+  @extend %item;
+}
+
+.record {
+  background: white;
+  @extend %item;
+}
+
+.notes {
+  margin-right: auto;
+  margin-left: 16px;
+  color: #999;
+}
+</style>
 
 <script lang="ts">
 
@@ -33,6 +72,10 @@ import recordTypeList from '@/constants/recordTypeList';
   components: {Tabs}
 })
 export default class Statistics extends Vue {
+  tagString(tag: Tag[]) {
+    console.log(tag.length);
+    return tag.length === 0 ? '无' : tag.join(',');
+  }
 
   get recordList() {
     return (this.$store.state as RootState).recordList;
