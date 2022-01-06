@@ -7,20 +7,8 @@
           :value.sync="interval"
           class-prefix="interval"/>
     <ol>
-      <li v-for="(group,index) in result" :key="index">
-        <h3 class="title">{{ group.title }}</h3>
-        <ol>
-          <li v-for="item in group.items" :key="item.id"
-              class="record"
-          >
-            <span>{{ tagString(item.tag) }}</span>
-            <span class="notes">{{ item.notes }}</span>
-            <span>￥{{ item.amount }} </span>
-          </li>
-        </ol>
-      </li>
-      <li v-for="(group,index) in result" :key="index">
-        <h3 class="title">{{ group.title }}</h3>
+      <li v-for="(group,key) in result" :key="group.title">
+        <h3 class="title">{{ beautiful(group.title) }}</h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record"
@@ -67,14 +55,30 @@ import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import intervalList from '@/constants/intervalList';
 import recordTypeList from '@/constants/recordTypeList';
+import dayjs from 'dayjs';
 
 @Component({
   components: {Tabs}
 })
 export default class Statistics extends Vue {
   tagString(tag: Tag[]) {
-    console.log(tag.length);
     return tag.length === 0 ? '无' : tag.join(',');
+  }
+
+  beautiful(string: string) {
+    const now = dayjs();
+    const day = dayjs(string);
+    if (day.isSame(now, 'day')) {
+      return '今天';
+    } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+      return '昨天';
+    } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+      return '前天';
+    } else if (day.isSame(now, 'year')) {
+      return day.format('MM月D日');
+    } else {
+      return day.format('YYYY年MM月D日');
+    }
   }
 
   get recordList() {
