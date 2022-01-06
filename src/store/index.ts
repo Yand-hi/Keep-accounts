@@ -87,6 +87,7 @@ const store = new Vuex.Store({
     }
   }
 });
+store.commit('fetchTags');
 
 export default store;
 
