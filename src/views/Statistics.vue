@@ -13,7 +13,7 @@
           <li v-for="item in group.items" :key="item.id"
               class="record"
           >
-            <span>{{ tagString(item.tag) }}</span>
+            <span>{{ tagString(item.tags) }}</span>
             <span class="notes">{{ item.notes }}</span>
             <span>￥{{ item.amount }} </span>
           </li>
@@ -21,7 +21,7 @@
       </li>
     </ol>
     <div v-else class="noResult">
-      目前没有相关记录
+      快去记一笔吧~(≧∀≦)ゞ
     </div>
   </Layout>
 </template>
@@ -39,9 +39,9 @@ import clone from '@/lib/clone';
   components: {Tabs}
 })
 export default class Statistics extends Vue {
-  tagString(tag: Tag[]) {
-    return tag.length === 0 ? '无' :
-        tag.map(t => t.name).join('，');
+  tagString(tags: Tag[]) {
+    return tags.length === 0 ? '无' :
+        tags.map(t => t.name).join('，');
   }
 
   beautiful(string: string) {
