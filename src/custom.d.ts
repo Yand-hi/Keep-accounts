@@ -1,6 +1,7 @@
 //  复杂类型声明
 type RootState = {
   recordList: RecordItem[],
+  createRecordError: Error | null,
   tagList: Tag[],
   currentTag?: Tag
 }
