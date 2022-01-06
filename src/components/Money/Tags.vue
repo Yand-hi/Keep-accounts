@@ -82,7 +82,7 @@ export default class Tags extends mixins(TagHelper) {
     button {
       background: transparent;
       border: none;
-      color: #999;
+      color: #2f77f1;
       border-bottom: 1px solid;
       padding: 0 4px;
     }
