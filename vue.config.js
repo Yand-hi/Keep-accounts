@@ -1,10 +1,9 @@
 const path = require('path')
 
 module.exports = {
-  devServer: {
-    proxy: 'http://localhost:8080',
-    public: '192.168.43.57:8080'  // 本地ip
-  },
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/keep-accounts-website/'
+    : '/',
 
   lintOnSave: false,
   chainWebpack: config => {
