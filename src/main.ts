@@ -27,7 +27,7 @@ window.onload = function () {
 if (document.documentElement.clientWidth > 500) {
   window.alert('温馨提示：请使用手机扫码查看，以保证预览效果~');
   const img = document.createElement('img');
-  img.src = '/keep-accounts.png';
+  img.src = '/keep-accounts-website/keep-accounts.png';
   img.style.width = '360px';
   img.style.position = 'fixed';
   img.style.top = '50%';
