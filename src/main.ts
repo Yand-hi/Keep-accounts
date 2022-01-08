@@ -23,3 +23,16 @@ window.onload = function () {
     window.scrollTo(0, 999);
   }, 0);
 };
+
+if (document.documentElement.clientWidth > 500) {
+  window.alert('温馨提示：请使用手机扫码查看，以保证预览效果~');
+  const img = document.createElement('img');
+  img.src = '/keep-accounts.png';
+  img.style.width = '360px';
+  img.style.position = 'fixed';
+  img.style.top = '50%';
+  img.style.left = '50%';
+  img.style.transform = 'translate(-50%, -50%)';
+  img.style.boxShadow = '0 0 10px raga(0,0,0,0.25)';
+  document.body.appendChild(img);
+}
