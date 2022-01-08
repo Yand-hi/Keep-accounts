@@ -2,9 +2,9 @@
   <Layout>
     <div class="tags">
       <router-link class="tag"
-                   v-for="tag in tags" :key="tag.id"
-                   :to="`/labels/edit/${tag.id}`">
-        <span>{{ tag.name }}</span>
+                   v-for="tags in tags" :key="tags.id"
+                   :to="`/labels/edit/${tags.id}`">
+        <span>{{ tags.name }}</span>
         <Icon name="right"/>
       </router-link>
     </div>
@@ -23,7 +23,7 @@ import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
 
 @Component({
-  components: {Button},
+  components: {Button}
 })
 export default class Labels extends mixins(TagHelper) {
   get tags() {

@@ -4,11 +4,11 @@
       <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id"
-          :class=" {selected: selectedTags.indexOf(tag) >= 0} "
-          @click="toggle(tag)"
+      <li v-for="tags in tagList" :key="tags.id"
+          :class=" {selected: selectedTags.indexOf(tags) >= 0} "
+          @click="toggle(tags)"
       >
-        {{ tag.name }}
+        {{ tags.name }}
       </li>
     </ul>
   </div>
@@ -31,12 +31,12 @@ export default class Tags extends mixins(TagHelper) {
     this.$store.commit('fetchTags');
   }
 
-  toggle(tag: string) {
+  toggle(tags: string) {
     this.selectedTags.length = 0;
-    if (this.selectedTags.indexOf(tag) >= 0) {
+    if (this.selectedTags.indexOf(tags) >= 0) {
       this.selectedTags.length = 0;
     } else {
-      this.selectedTags.push(tag);
+      this.selectedTags.push(tags);
     }
     this.$emit('update:value', this.selectedTags);
   }

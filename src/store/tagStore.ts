@@ -42,8 +42,8 @@ const tagStore = {
       if (names.indexOf(name) >= 0) {
         return 'duplicated';
       } else {
-        const tag = this.tagList.filter(item => item.id === id)[0];
-        tag.name = name;
+        const tags = this.tagList.filter(item => item.id === id)[0];
+        tags.name = name;
         this.saveTags();
         return 'success';
       }
