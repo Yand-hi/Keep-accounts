@@ -19,6 +19,7 @@
           </li>
         </ol>
       </li>
+      <v-chart class="chart" :option="option"/>
     </ol>
     <div v-else class="noResult">
       快去记一笔吧 ~(≧∀≦)ゞ
@@ -27,13 +28,29 @@
 </template>
 
 <script lang="ts">
-
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import ECharts from 'vue-echarts';
+import {use} from 'echarts/core';
+import {CanvasRenderer} from 'echarts/renderers';
+import {BarChart, PieChart} from 'echarts/charts';
+import {GridComponent, TooltipComponent, TitleComponent, LegendComponent} from 'echarts/components';
+
+use([
+  PieChart,
+  CanvasRenderer,
+  BarChart,
+  GridComponent,
+  TooltipComponent,
+  TitleComponent,
+  LegendComponent
+]);
+
+Vue.component('v-chart', ECharts);
 
 @Component({
   components: {Tabs}
@@ -98,10 +115,62 @@ export default class Statistics extends Vue {
 
   type = '-';
   recordTypeList = recordTypeList;
+
+  data() {
+    return {
+      option: {
+        title: {
+          text: 'Traffic Sources',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+          data: [
+            'Direct',
+            'Email',
+            'Ad Networks',
+            'Video Ads',
+            'Search Engines'
+          ]
+        },
+        series: [
+          {
+            name: 'Traffic Sources',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [
+              {value: 335, name: 'Direct'},
+              {value: 310, name: 'Email'},
+              {value: 234, name: 'Ad Networks'},
+              {value: 135, name: 'Video Ads'},
+              {value: 1548, name: 'Search Engines'}
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      }
+    };
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+.chart {
+  height: 400px;
+}
+
 .noResult {
   padding: 16px;
   text-align: center;
