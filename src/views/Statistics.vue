@@ -21,7 +21,7 @@
       </li>
     </ol>
     <div v-else class="noResult">
-      快去记一笔吧~(≧∀≦)ゞ
+      快去记一笔吧 ~(≧∀≦)ゞ
     </div>
   </Layout>
 </template>
