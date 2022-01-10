@@ -168,7 +168,8 @@ export default class Statistics extends Vue {
 
 <style lang="scss" scoped>
 .chart {
-  height: 400px;
+  padding-top: 20px;
+  height: 300px;
 }
 
 .noResult {
