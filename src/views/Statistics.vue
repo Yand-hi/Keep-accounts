@@ -102,23 +102,48 @@ export default class Statistics extends Vue {
 
 
   get option() {
-    let arr: number[] = [];
-    const number = this.recordList.map(i => ({amount: i.amount}));
-    number.forEach(item => {
-      arr.push(item.amount);
-    });
-    console.log(arr);
-    let arr1: string[] = [];
+    let resultList: any = [];
+    let tagName: any = [];
+    let num: any = [];
+    let itemType: any = [];
+    let sameName: any = [];
+    const type = this.recordList.map(i => ({type: i.type}));
     const allTags = this.recordList.map(i => ({tags: i.tags}));
-    allTags.forEach(item => {
-      arr1.push(item.tags[0].name);
+    const allAmount = this.recordList.map(i => ({amount: i.amount}));
+    allAmount.forEach(item => {
+      num.push(item.amount);
     });
-    console.log(arr1);
-    let info: any = {};
-    for (let i = 0; i < arr.length; i++) {
-      info[arr[i]] = arr1[i];
+    type.forEach(item => {
+      itemType.push(item.type);
+    });
+    //  为 echarts 构造相同数据结构的 legend 和 series
+    for (let i = 0; i < allTags.length; i++) {
+      if (itemType[i] === '-') {
+        let everyTag = allTags[i].tags[0].name;
+        resultList.push({name: everyTag, value: num[i]});
+        if (tagName.indexOf(everyTag) < 0) {
+          tagName.push(allTags[i].tags[0].name);
+        }
+      }
     }
-    console.log(info);
+    //  去除 resultList 中重复 name 的项，并且将值相加
+    for (let i = 0; i < resultList.length; i++) {
+      if (itemType[i] === '-') {
+        for (let j = resultList.length - 1; j > i; j--) {
+          if (resultList[i].name == resultList[j].name) {
+            resultList[i].value = (resultList[i].value * 1 + resultList[j].value * 1);
+            sameName.push(j);
+          }
+        }
+      }
+    }
+    for (let k = 0; k < sameName.length; k++) {
+      resultList.splice(sameName[k], 1);
+    }
+
+    console.log(itemType);
+    console.log(sameName);
+    console.log(resultList);
 
 
     return {
@@ -133,7 +158,7 @@ export default class Statistics extends Vue {
       legend: {
         orient: 'vertical',
         left: 'left',
-        data: arr
+        data: tagName
       },
       series: [
         {
@@ -141,9 +166,7 @@ export default class Statistics extends Vue {
           type: 'pie',
           radius: '55%',
           center: ['50%', '60%'],
-          data: [
-            info
-          ],
+          data: resultList,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
