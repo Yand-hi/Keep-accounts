@@ -100,7 +100,6 @@ export default class Statistics extends Vue {
   type = '-';
   recordTypeList = recordTypeList;
 
-
   get option() {
     let resultList: any = [];
     let tagName: any = [];
@@ -118,7 +117,7 @@ export default class Statistics extends Vue {
     });
     //  为 echarts 构造相同数据结构的 legend 和 series
     for (let i = 0; i < allTags.length; i++) {
-      if (itemType[i] === '-') {
+      if (itemType[i] === this.type) {
         let everyTag = allTags[i].tags[0].name;
         resultList.push({name: everyTag, value: num[i]});
         if (tagName.indexOf(everyTag) < 0) {
@@ -126,29 +125,27 @@ export default class Statistics extends Vue {
         }
       }
     }
+
     //  去除 resultList 中重复 name 的项，并且将值相加
     for (let i = 0; i < resultList.length; i++) {
-      if (itemType[i] === '-') {
+      if (itemType[i] === this.type) {
         for (let j = resultList.length - 1; j > i; j--) {
           if (resultList[i].name == resultList[j].name) {
-            resultList[i].value = (resultList[i].value * 1 + resultList[j].value * 1);
+            resultList[i].value = resultList[i].value + resultList[j].value;
             sameName.push(j);
           }
         }
       }
     }
+    console.log(sameName);
     for (let k = 0; k < sameName.length; k++) {
       resultList.splice(sameName[k], 1);
     }
-
-    console.log(itemType);
-    console.log(sameName);
     console.log(resultList);
-
 
     return {
       title: {
-        text: '支出类型占比',
+        text: '分类占比',
         left: 'center'
       },
       tooltip: {

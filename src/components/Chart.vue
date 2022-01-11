@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
 .chart {
-  padding-top: 20px;
+  padding-top: 40px;
   height: 300px;
 }
 </style>
