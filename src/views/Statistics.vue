@@ -19,7 +19,7 @@
           </li>
         </ol>
       </li>
-      <v-chart class="chart" :option="option"/>
+      <Chart :option="option"/>
     </ol>
     <div v-else class="noResult">
       快去记一笔吧 ~(≧∀≦)ゞ
@@ -34,26 +34,10 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
-import ECharts from 'vue-echarts';
-import {use} from 'echarts/core';
-import {CanvasRenderer} from 'echarts/renderers';
-import {BarChart, PieChart} from 'echarts/charts';
-import {GridComponent, TooltipComponent, TitleComponent, LegendComponent} from 'echarts/components';
-
-use([
-  PieChart,
-  CanvasRenderer,
-  BarChart,
-  GridComponent,
-  TooltipComponent,
-  TitleComponent,
-  LegendComponent
-]);
-
-Vue.component('v-chart', ECharts);
+import Chart from '@/components/Chart.vue';
 
 @Component({
-  components: {Tabs}
+  components: {Chart, Tabs}
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
@@ -116,61 +100,67 @@ export default class Statistics extends Vue {
   type = '-';
   recordTypeList = recordTypeList;
 
-  data() {
+
+  get option() {
+    let arr: number[] = [];
+    const number = this.recordList.map(i => ({amount: i.amount}));
+    number.forEach(item => {
+      arr.push(item.amount);
+    });
+    console.log(arr);
+    let arr1: string[] = [];
+    const allTags = this.recordList.map(i => ({tags: i.tags}));
+    allTags.forEach(item => {
+      arr1.push(item.tags[0].name);
+    });
+    console.log(arr1);
+    let info: any = {};
+    for (let i = 0; i < arr.length; i++) {
+      info[arr[i]] = arr1[i];
+    }
+    console.log(info);
+
+
     return {
-      option: {
-        title: {
-          text: 'Traffic Sources',
-          left: 'center'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'left',
+      title: {
+        text: '支出类型占比',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: arr
+      },
+      series: [
+        {
+          name: '支出类型',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '60%'],
           data: [
-            'Direct',
-            'Email',
-            'Ad Networks',
-            'Video Ads',
-            'Search Engines'
-          ]
-        },
-        series: [
-          {
-            name: 'Traffic Sources',
-            type: 'pie',
-            radius: '55%',
-            center: ['50%', '60%'],
-            data: [
-              {value: 335, name: 'Direct'},
-              {value: 310, name: 'Email'},
-              {value: 234, name: 'Ad Networks'},
-              {value: 135, name: 'Video Ads'},
-              {value: 1548, name: 'Search Engines'}
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
+            info
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
           }
-        ]
-      }
+        }
+      ]
     };
-  }
+  };
+
+
 }
 </script>
 
 <style lang="scss" scoped>
-.chart {
-  padding-top: 20px;
-  height: 300px;
-}
 
 .noResult {
   padding: 16px;
@@ -179,10 +169,10 @@ export default class Statistics extends Vue {
 
 ::v-deep {
   .type-tabs-item {
-    background: #c4c4c4;
+    background: #f5f5f5;
 
     &.selected {
-      background: white;
+      background: #2f77f1;
 
       &::after {
         display: none;
