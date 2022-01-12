@@ -22,6 +22,8 @@
       <Chart :option="option"/>
     </ol>
     <div v-else class="noResult">
+      目前没有记录
+      <br>
       快去记一笔吧 ~(≧∀≦)ゞ
     </div>
   </Layout>
@@ -97,9 +99,6 @@ export default class Statistics extends Vue {
     this.$store.commit('fetchRecords');
   }
 
-  type = '-';
-  recordTypeList = recordTypeList;
-
   get option() {
     let resultList: any = [];
     let tagName: any = [];
@@ -125,23 +124,26 @@ export default class Statistics extends Vue {
         }
       }
     }
-
+    console.log(this.groupedList);
+    console.log(itemType);
     //  去除 resultList 中重复 name 的项，并且将值相加
     for (let i = 0; i < resultList.length; i++) {
+      console.log(this.type);
       if (itemType[i] === this.type) {
         for (let j = resultList.length - 1; j > i; j--) {
-          if (resultList[i].name == resultList[j].name) {
+          if (resultList[i].name === resultList[j].name) {
             resultList[i].value = resultList[i].value + resultList[j].value;
             sameName.push(j);
           }
         }
       }
     }
-    console.log(sameName);
+
     for (let k = 0; k < sameName.length; k++) {
+      // console.log(resultList.splice(sameName[k], 1));
       resultList.splice(sameName[k], 1);
+      // console.log(resultList.splice(sameName[k], 1));
     }
-    console.log(resultList);
 
     return {
       title: {
@@ -159,7 +161,7 @@ export default class Statistics extends Vue {
       },
       series: [
         {
-          name: '支出类型',
+          name: '💸 类型',
           type: 'pie',
           radius: '55%',
           center: ['50%', '60%'],
@@ -176,14 +178,15 @@ export default class Statistics extends Vue {
     };
   };
 
-
+  type = '-';
+  recordTypeList = recordTypeList;
 }
 </script>
 
 <style lang="scss" scoped>
 
 .noResult {
-  padding: 16px;
+  margin-top: 100px;
   text-align: center;
 }
 
