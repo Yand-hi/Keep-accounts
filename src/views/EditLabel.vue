@@ -75,6 +75,10 @@ export default class EditLabel extends Vue {
     height: 1em;
     color: #2f77f1;
   }
+
+  .leftIcon {
+    color: #2f77f1;
+  }
 }
 
 .form-wrapper {

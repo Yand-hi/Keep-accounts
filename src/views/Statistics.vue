@@ -22,9 +22,10 @@
       <Chart :option="option"/>
     </ol>
     <div v-else class="noResult">
-      目前没有记录
-      <br>
-      快去记一笔吧 ~(≧∀≦)ゞ
+      <Icon name="null"/>
+      <p>目前没有记录</p>
+      <p>快去记一笔吧 ~(≧∀≦)ゞ</p>
+      👇
     </div>
   </Layout>
 </template>
@@ -114,6 +115,7 @@ export default class Statistics extends Vue {
     type.forEach(item => {
       itemType.push(item.type);
     });
+
     //  为 echarts 构造相同数据结构的 legend 和 series
     for (let i = 0; i < allTags.length; i++) {
       if (itemType[i] === this.type) {
@@ -124,11 +126,9 @@ export default class Statistics extends Vue {
         }
       }
     }
-    console.log(this.groupedList);
-    console.log(itemType);
+
     //  去除 resultList 中重复 name 的项，并且将值相加
     for (let i = 0; i < resultList.length; i++) {
-      console.log(this.type);
       if (itemType[i] === this.type) {
         for (let j = resultList.length - 1; j > i; j--) {
           if (resultList[i].name === resultList[j].name) {
@@ -140,9 +140,7 @@ export default class Statistics extends Vue {
     }
 
     for (let k = 0; k < sameName.length; k++) {
-      // console.log(resultList.splice(sameName[k], 1));
       resultList.splice(sameName[k], 1);
-      // console.log(resultList.splice(sameName[k], 1));
     }
 
     return {
@@ -156,7 +154,7 @@ export default class Statistics extends Vue {
       },
       legend: {
         orient: 'vertical',
-        left: 'left',
+        left: '20px',
         data: tagName
       },
       series: [
@@ -184,10 +182,16 @@ export default class Statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
+$color-shadow: rgba(0, 0, 0, 0.25);
 .noResult {
   margin-top: 100px;
   text-align: center;
+
+  .icon {
+    color: #333;
+    width: 100px;
+    height: 100px;
+  }
 }
 
 ::v-deep {
@@ -196,6 +200,8 @@ export default class Statistics extends Vue {
 
     &.selected {
       background: #2f77f1;
+      box-shadow: inset 0 -3px 3px -3px $color-shadow;
+      color: white;
 
       &::after {
         display: none;

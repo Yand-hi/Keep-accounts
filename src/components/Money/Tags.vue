@@ -1,7 +1,10 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="createTag">新增标签</button>
+      <button @click="createTag">
+        <Icon name="add"/>
+        新增标签
+      </button>
     </div>
     <ul class="current">
       <li v-for="tags in tagList" :key="tags.id"
@@ -82,9 +85,11 @@ export default class Tags extends mixins(TagHelper) {
     button {
       background: transparent;
       border: none;
+      font-size: 16px;
       color: #2f77f1;
       border-bottom: 1px solid;
       padding: 0 4px;
+      cursor: pointer;
     }
   }
 }

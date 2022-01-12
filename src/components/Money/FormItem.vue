@@ -7,6 +7,7 @@
                :value="x(value)"
                @input="onValueChanged($event.target.value)"
                :placeholder="placeholder">
+        <Icon name="date"/>
       </template>
       <template v-else>
         <input :type="type||'text'"
@@ -59,6 +60,10 @@ export default class FormItem extends Vue {
     background: transparent;
     border: none;
     padding-right: 16px;
+  }
+
+  .icon {
+    visibility: hidden;
   }
 }
 </style>

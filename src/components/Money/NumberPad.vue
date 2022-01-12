@@ -14,6 +14,7 @@
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
       <button @click="ok" class="ok">OK</button>
+      <button @click="" class="#">#</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent" class="point">.</button>
     </div>
@@ -96,21 +97,14 @@ export default class NumberPad extends Vue {
       float: left;
       background: transparent;
       border: 1px solid #fff;
+      border-radius: 8px;
 
       &.ok {
         height: 64*2px;
         float: right;
       }
 
-      &.zero {
-        width: 25*1.6%;
-      }
-
-      &.point {
-        width: 25*1.4%;
-      }
-
-      $bg: #f2f2f2;
+      $bg: #e8e8e8;
 
       &:nth-child(1) {
         background: $bg;
@@ -124,21 +118,16 @@ export default class NumberPad extends Vue {
         background: darken($bg, 4*2%);
       }
 
-      &:nth-child(4), &:nth-child(7), &:nth-child(10) {
+      &:nth-child(4), &:nth-child(7), &:nth-child(10), &:nth-child(13) {
         background: darken($bg, 4*3%);
       }
 
-      &:nth-child(8), &:nth-child(11), &:nth-child(13) {
+      &:nth-child(8), &:nth-child(11), &:nth-child(14) {
         background: darken($bg, 4*4%);
       }
 
-      &:nth-child(14) {
+      &:nth-child(15), &:nth-child(12) {
         background: darken($bg, 4*5%);
-      }
-
-      &:nth-child(12) {
-        color: #fff;
-        background: #2f77f1;
       }
     }
   }

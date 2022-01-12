@@ -75,7 +75,9 @@ const store = new Vuex.Store({
         store.commit('createTag', '饮食');
         store.commit('createTag', '住宿');
         store.commit('createTag', '出行');
+        store.commit('createTag', '购物');
         store.commit('createTag', '工资');
+        store.commit('createTag', '奖金');
         store.commit('createTag', '兼职');
         store.commit('createTag', '基金');
         store.commit('createTag', '股票');
