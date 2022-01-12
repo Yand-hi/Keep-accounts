@@ -14,7 +14,7 @@
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
       <button @click="ok" class="ok">OK</button>
-      <button @click="" class="#">#</button>
+      <button @click="inputContent" class="point">.</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent" class="point">.</button>
     </div>

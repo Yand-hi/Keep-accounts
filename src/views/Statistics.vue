@@ -23,9 +23,8 @@
     </ol>
     <div v-else class="noResult">
       <Icon name="null"/>
-      <p>目前没有记录</p>
+      <p>~空空如也~</p>
       <p>快去记一笔吧 ~(≧∀≦)ゞ</p>
-      👇
     </div>
   </Layout>
 </template>
@@ -189,8 +188,8 @@ $color-shadow: rgba(0, 0, 0, 0.25);
 
   .icon {
     color: #333;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
   }
 }
 

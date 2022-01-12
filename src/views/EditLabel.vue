@@ -1,14 +1,14 @@
 <template>
-  <Layout>
+  <Layout :style="{height:h+'px'}">
     <div class="navBar">
       <Icon class="leftIcon" name="left" @click="goBack"/>
-      <span class="title">编辑标签</span>
+      <span class="title">🖍编辑标签</span>
       <span class="rightIcon"/>
     </div>
     <div class="form-wrapper">
       <FormItem :value="currentTag.name"
                 @update:value="update"
-                file-name="标签名"
+                file-name="标签名:"
                 placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
@@ -27,6 +27,8 @@ import Button from '@/components/Button.vue';
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue {
+  h = document.body.clientHeight;
+
   get currentTag() {
     return this.$store.state.currentTag;
   }
