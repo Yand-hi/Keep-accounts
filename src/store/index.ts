@@ -25,7 +25,7 @@ const store = new Vuex.Store({
       if (idList.indexOf(id) >= 0) {
         const names = state.tagList.map(item => item.name);
         if (names.indexOf(name) >= 0) {
-          window.alert('该标签已存在');
+          Vue.prototype.$message.error('该标签已存在');
         } else {
           const tag = state.tagList.filter(item => item.id === id)[0];
           tag.name = name;
@@ -44,10 +44,11 @@ const store = new Vuex.Store({
       }
       if (index >= 0) {
         state.tagList.splice(index, 1);
+        Vue.prototype.$message.success('删除成功');
         store.commit('saveTags');
         router.back();
       } else {
-        window.alert('删除失败');
+        Vue.prototype.$message.error('删除失败');
       }
 
     },

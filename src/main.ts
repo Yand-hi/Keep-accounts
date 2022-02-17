@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
@@ -8,6 +10,7 @@ import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
 
 Vue.config.productionTip = false;
+Vue.use(ElementUI);
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
@@ -25,5 +28,5 @@ window.onload = function () {
 };
 
 if (document.documentElement.clientWidth > 500) {
-  window.alert('温馨提示：使用手机查看，效果会更好~');
+  Vue.prototype.$message('温馨提示：使用手机预览，效果会更好~');
 }

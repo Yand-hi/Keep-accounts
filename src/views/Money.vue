@@ -50,11 +50,14 @@ export default class Money extends Vue {
 
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
-      return window.alert('请至少选择一个标签');
+      return this.$message({message: '请先选择标签', type: 'warning'})
     }
     this.$store.commit('createRecord', this.record);
     if (this.$store.state.createRecordError === null) {
-      window.alert('已保存');
+      this.$message({
+        message: '已保存',
+        type: 'success'
+      });
       this.record.notes = '';
     }
   }

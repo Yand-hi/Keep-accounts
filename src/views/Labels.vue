@@ -1,5 +1,8 @@
 <template>
   <Layout>
+    <div class="navBar">
+      <span class="title">✍️编辑标签</span>
+    </div>
     <div class="tags">
       <router-link class="tag"
                    v-for="tags in tags" :key="tags.id"
@@ -37,10 +40,13 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+$color: #2f77f1;
+$color-shadow: rgba(0, 0, 0, 0.25);
 .tags {
   background: white;
   font-size: 16px;
   padding-left: 16px;
+  margin-top: 8px;
 
   > .tag {
     min-height: 44px;
@@ -52,14 +58,14 @@ export default class Labels extends mixins(TagHelper) {
     svg {
       width: 18px;
       height: 18px;
-      color: #2f77f1;
+      color: $color;
       margin-right: 16px;
     }
   }
 }
 
 .createTag {
-  background: #2f77f1;
+  background: $color;
   color: white;
   border-radius: 4px;
   border: none;
@@ -71,5 +77,15 @@ export default class Labels extends mixins(TagHelper) {
     padding: 16px;
     margin-top: 44-16px;
   }
+}
+
+.navBar {
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 16px;
+  background: white;
+  margin: 0 auto;
+  box-shadow: inset -3px 3px -3px 0 $color-shadow,
+  inset 3px 3px -3px 0 $color-shadow;
 }
 </style>
