@@ -2,23 +2,29 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 const map: { [key: string]: string } = {
-  'tag name duplicated': '该标签已存在'
+  'tag name duplicated': '标签名重复了'
 };
 
 @Component
 export class TagHelper extends Vue {
   createTag() {
-    const name = window.prompt('请输入标签名');
-    if (name === '') {
-      return this.$message.error('标签名不能为空');
-    }
-    if (name === null) {
-      return;
-    }
-    this.$store.commit('createTag', name);
-    if (this.$store.state.createTagError) {
-      this.$message.error(map[this.$store.state.createTagError.message] || '未知错误');
-    }
+    this.$prompt('请输入标签名', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+    }).then(res => {
+      // @ts-ignore
+      const name = res.value
+      if (name === '') {
+        return;
+      }
+      if (name === null) {
+        return;
+      }
+      this.$store.commit('createTag', name);
+      if (this.$store.state.createTagError) {
+        this.$message.warning(map[this.$store.state.createTagError.message] || '未知错误');
+      }
+    })
   }
 }
 
