@@ -4,12 +4,12 @@
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
     <div class="notes">
-      <FormItem file-name="🗓 日期"
+      <FormItem file-name="📆 日期"
                 type="date"
                 placeholder="请输入日期"
                 :value.sync="record.time"/>
       <FormItem file-name="📝 备注"
-                placeholder=" 请输入备注~"
+                placeholder="请输入备注~"
                 :value.sync="record.notes"/>
     </div>
     <Tags @update:value="record.tags = $event"/>
